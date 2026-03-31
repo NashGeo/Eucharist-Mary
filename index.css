@@ -1,0 +1,156 @@
+/* ============================================================
+   GLOBAL STYLES — Eucharist & Mary
+   CSS custom properties for full light/dark theming
+   ============================================================ */
+
+:root {
+  /* Light mode palette — warm parchment, cardinal, gold */
+  --bg:            #FAF7F0;
+  --bg-alt:        #F3EEE4;
+  --bg-canvas:     #EDE6D6;
+  --bg-panel:      #FFFCF5;
+  --bg-header:     #1A0800;
+  --bg-node:       #FFFCF5;
+  --bg-node-main:  #1A0800;
+
+  --text:          #1A0E00;
+  --text-secondary:#6B4F2A;
+  --text-panel:    #2A1800;
+  --text-light:    #9A7A50;
+  --text-header:   #F5EDD5;
+
+  --gold:          #B8892A;
+  --gold-light:    #D4AF5A;
+  --gold-dim:      rgba(184, 137, 42, 0.25);
+  --gold-glow:     rgba(184, 137, 42, 0.18);
+
+  --border:        rgba(184, 137, 42, 0.35);
+  --border-panel:  rgba(184, 137, 42, 0.4);
+  --border-node:   #B8892A;
+
+  --shadow:        rgba(50, 20, 0, 0.12);
+  --shadow-node:   0 4px 30px rgba(184, 137, 42, 0.25), 0 0 0 1.5px rgba(184, 137, 42, 0.5);
+  --shadow-node-main: 0 6px 50px rgba(184, 137, 42, 0.35), 0 0 0 2px rgba(184, 137, 42, 0.6);
+
+  --canvas-dot:    rgba(184, 137, 42, 0.12);
+  --line-color:    rgba(184, 137, 42, 0.5);
+
+  --chip-bg:       rgba(184, 137, 42, 0.1);
+  --chip-active:   #B8892A;
+  --chip-border:   rgba(184, 137, 42, 0.3);
+
+  --radius-sm:     6px;
+  --radius-md:     12px;
+  --radius-lg:     20px;
+  --radius-full:   9999px;
+
+  --font-serif:    'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --font-sans:     'Inter', system-ui, -apple-system, sans-serif;
+
+  --transition:    0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --panel-width:   420px;
+}
+
+[data-theme="dark"] {
+  --bg:            #0E0B08;
+  --bg-alt:        #141008;
+  --bg-canvas:     #110D06;
+  --bg-panel:      #1A1408;
+  --bg-header:     #080500;
+  --bg-node:       #1E1708;
+  --bg-node-main:  #0E0B08;
+
+  --text:          #F0E8D5;
+  --text-secondary:#C4A060;
+  --text-panel:    #EAE0C8;
+  --text-light:    #8A7050;
+  --text-header:   #F0E8D5;
+
+  --gold:          #D4AF5A;
+  --gold-light:    #E8CB80;
+  --gold-dim:      rgba(212, 175, 90, 0.2);
+  --gold-glow:     rgba(212, 175, 90, 0.15);
+
+  --border:        rgba(212, 175, 90, 0.25);
+  --border-panel:  rgba(212, 175, 90, 0.3);
+  --border-node:   #D4AF5A;
+
+  --shadow:        rgba(0, 0, 0, 0.4);
+  --shadow-node:   0 4px 30px rgba(212, 175, 90, 0.2), 0 0 0 1.5px rgba(212, 175, 90, 0.4);
+  --shadow-node-main: 0 6px 50px rgba(212, 175, 90, 0.25), 0 0 0 2px rgba(212, 175, 90, 0.5);
+
+  --canvas-dot:    rgba(212, 175, 90, 0.08);
+  --line-color:    rgba(212, 175, 90, 0.4);
+
+  --chip-bg:       rgba(212, 175, 90, 0.08);
+  --chip-active:   #D4AF5A;
+  --chip-border:   rgba(212, 175, 90, 0.25);
+}
+
+/* ---- Reset & Base ---- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+/* ---- Scrollbar ---- */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+/* ---- Typography ---- */
+h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 600; line-height: 1.2; }
+
+/* ---- Animations ---- */
+@keyframes nodeIn {
+  0%   { transform: scale(0) translate(var(--tx, 0), var(--ty, 0)); opacity: 0; }
+  55%  { transform: scale(1.12) translate(var(--tx, 0), var(--ty, 0)); opacity: 1; }
+  75%  { transform: scale(0.96) translate(var(--tx, 0), var(--ty, 0)); }
+  100% { transform: scale(1)    translate(var(--tx, 0), var(--ty, 0)); opacity: 1; }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.45; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateX(24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes glowPulse {
+  0%, 100% { box-shadow: var(--shadow-node-main); }
+  50%       { box-shadow: 0 6px 60px rgba(184, 137, 42, 0.55), 0 0 0 2px rgba(184, 137, 42, 0.7); }
+}
+
+
+@keyframes lineIn {
+  from { stroke-dashoffset: 600; opacity: 0; }
+  to   { stroke-dashoffset: 0; opacity: 1; }
+}
+
+@keyframes hintPulse {
+  0%, 100% { opacity: 0.65; }
+  50%       { opacity: 0.3; }
+}
